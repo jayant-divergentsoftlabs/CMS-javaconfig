@@ -6,6 +6,12 @@ import java.sql.SQLException;
 
 import java.util.List;
 import java.util.Scanner;
+import java.util.Set;
+
+import javax.validation.ConstraintViolation;
+import javax.validation.Validation;
+import javax.validation.Validator;
+import javax.validation.ValidatorFactory;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -15,6 +21,7 @@ import org.springframework.stereotype.Component;
 import com.divergentsl.clinicmanagementsystem.dao.DrugDao;
 
 import com.divergentsl.clinicmanagementsystem.dto.DrugDto;
+import com.divergentsl.clinicmanagementsystem.dto.PatientDto;
 
 /**
  * This class is accessible only by the admin and in this class admin can
@@ -72,21 +79,29 @@ public class CRUDdrug {
 	}
 
 	public  void create() {
+		DrugDto drugDto=new DrugDto();
 		Scanner sc = new Scanner(System.in);
 
 		Connection con;
 
 		System.out.println("Enter Drug ID");
 		int id = sc.nextInt();
+		drugDto.setId(id);
 		System.out.println("Enter Drug Name");
 		String name = sc.next().trim();
+		drugDto.setName(name);
 		System.out.println("Enter Drug Quantity");
 		int quantity = sc.nextInt();
+		drugDto.setQuantity(quantity);
 		System.out.println("Enter Drug Description");
 		String description = sc.next();
+		drugDto.setDescription(description);
 		System.out.println("Enter Drug Price");
 		int price = sc.nextInt();
-
+		drugDto.setPrice(price);
+		if (validateDrug(drugDto)) {
+			return;
+		}
 		try {
 			drugdao.create(id, name, quantity, description, price);
 			logger.debug("\n-------Insertion is Successful-------");
@@ -115,19 +130,28 @@ public class CRUDdrug {
 	}
 
 	public void update() {
+		DrugDto drugDto=new DrugDto();
+	
 		Scanner sc = new Scanner(System.in);
 
 		System.out.println("Enter Drug ID  you want to edit");
 		int id = sc.nextInt();
+		drugDto.setId(id);
 		System.out.println("Enter a name you want to update");
 		String name = sc.next();
+		drugDto.setName(name);
 		System.out.println("Enter a Quantity you want to update");
 		int quantity = sc.nextInt();
+		drugDto.setQuantity(quantity);
 		System.out.println("Enter a description you want to update");
 		String description = sc.next();
+		drugDto.setDescription(description);
 		System.out.println("Enter a price you want to update");
 		int price = sc.nextInt();
-
+		drugDto.setPrice(price);
+		if (validateDrug(drugDto)) {
+			return;
+		}
 		try {
 
 			drugdao.update(id, name, quantity, description, price);
@@ -152,5 +176,17 @@ public class CRUDdrug {
 		} catch (SQLException e) {
 			logger.debug("---------------Can't Delete-----------------"+e.getMessage());
 		}
+	}
+	private boolean validateDrug(DrugDto drug) {
+
+		ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
+		Validator validator = factory.getValidator();
+
+		Set<ConstraintViolation<DrugDto>> violations = validator.validate(drug);
+
+		for (ConstraintViolation<DrugDto> violation : violations) {
+			logger.error(violation.getMessage());
+		}
+		return violations.size() > 0;
 	}
 }

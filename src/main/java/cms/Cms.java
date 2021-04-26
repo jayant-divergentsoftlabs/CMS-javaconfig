@@ -3,7 +3,9 @@ package cms;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+
 import com.divergentsl.clinicmanagementsystem.ClinicManagementSystem;
+
 
 public class Cms {
 	private static Logger logger = LoggerFactory.getLogger(Cms.class);
@@ -16,9 +18,9 @@ public class Cms {
 		context.refresh();
 		logger.debug("ApplicationContext:{}", context);
 		ClinicManagementSystem clinicManagement = context.getBean(ClinicManagementSystem.class);
-		logger.info("Property Value:{}",clinicManagement.getPropertyValue());
+		logger.info("Property Value:{}", clinicManagement.getPropertyValue());
 		logger.info("ClinicManagementSystem:{}", clinicManagement.show());
-		
+
 	}
 
 }

@@ -26,7 +26,7 @@ public class PatientDao {
 	public IDatabaseManager databaseManager;
 
 
-	public int create(String id, String name, int age, char gender, String contactnumber, int weight)
+	public int create(String id, String name, int age, String gender, String contactnumber, int weight)
 			throws SQLException {
 		Connection con = null;
 		Statement stmt = null;
@@ -50,7 +50,7 @@ public class PatientDao {
 			dto.setId(rs.getString(1));
 			dto.setName(rs.getString(2));
 			dto.setAge(rs.getInt(3));
-			dto.setGender(rs.getCharacterStream(4));
+			dto.setGender(rs.getString(4));
 			dto.setContactnumber(rs.getString(5));
 			dto.setWeight(rs.getInt(6));
 			patientDtos.add(dto);
@@ -59,7 +59,7 @@ public class PatientDao {
 
 	}
 
-	public int update(String id, String name, int age, char gender, String contactnumber, int weight)
+	public int update(String id, String name, int age, String gender, String contactnumber, int weight)
 			throws SQLException {
 		Connection con = null;
 		Statement stmt = null;

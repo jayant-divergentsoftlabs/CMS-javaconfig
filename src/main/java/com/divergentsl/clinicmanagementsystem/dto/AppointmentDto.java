@@ -1,7 +1,26 @@
 package com.divergentsl.clinicmanagementsystem.dto;
 
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+
+import org.springframework.format.annotation.DateTimeFormat;
+
 public class AppointmentDto {
-	String appointmentId, patientname, DrId, Problem, appointmentDate, appointmentTime;
+	@NotBlank(message = "ID can't be Null")
+	String appointmentId;
+	@NotNull(message = "Please enter patient name")
+	String patientname;
+	@NotNull(message = "Please enter valid doctorId")
+	String DrId;
+	@NotNull(message = "Please enter problem")
+	String Problem;
+
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
+	@NotNull(message = "Please provide a date.")
+	String appointmentDate;
+	@DateTimeFormat(pattern = "hh-mm")
+	@NotNull(message = "Please provide a time.")
+	String appointmentTime;
 
 	public String getAppointmentId() {
 		return appointmentId;

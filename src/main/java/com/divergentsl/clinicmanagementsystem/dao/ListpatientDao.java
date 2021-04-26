@@ -38,7 +38,7 @@ public class ListpatientDao {
 			dto.setId(rs.getString(1));
 			dto.setName(rs.getString(2));
 			dto.setAge(rs.getInt(3));
-			dto.setGender(rs.getCharacterStream(4));
+			dto.setGender(rs.getString(4));
 			dto.setContactnumber(rs.getString(5));
 			dto.getWeight();
 			patientDtos.add(dto);

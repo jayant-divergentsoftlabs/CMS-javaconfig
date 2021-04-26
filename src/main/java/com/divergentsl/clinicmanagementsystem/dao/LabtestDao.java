@@ -12,8 +12,11 @@ import org.springframework.stereotype.Repository;
 
 import com.divergentsl.clinicmanagementsystem.databaseconnection.IDatabaseManager;
 import com.divergentsl.clinicmanagementsystem.dto.LabtestDto;
+
 /**
- * This is data access object class for create,read,update and delete operation on labtest.
+ * This is data access object class for create,read,update and delete operation
+ * on labtest.
+ * 
  * @author Jayant
  *
  */
@@ -22,9 +25,8 @@ public class LabtestDao {
 	@Autowired
 	public static IDatabaseManager databaseManager;
 
-	
-
 	public int create(int id, String name, int price) throws SQLException {
+
 		Connection con = null;
 		Statement stmt = null;
 		con = databaseManager.getConnection();

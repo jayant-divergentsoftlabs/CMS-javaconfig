@@ -25,10 +25,6 @@ public class AppointmentDao {
 	@Autowired
 	private IDatabaseManager databaseManager;
 
-	/*
-	 * public AppointmentDao(IDatabaseManager databaseManager) {
-	 * this.databaseManager = databaseManager; }
-	 */
 
 	public int create(String appointmentId, String patientName, String doctorId, String problem, String appointmentDate,
 			String appointmentTime) throws SQLException {

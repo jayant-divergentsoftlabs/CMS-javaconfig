@@ -1,11 +1,26 @@
 package com.divergentsl.clinicmanagementsystem.dto;
-
-import java.io.Reader;
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
+import javax.validation.constraints.Size;
 
 public class PatientDto {
-	String id, name,  contactnumber;
-	int weight,age;
-	Reader gender;
+	@NotBlank(message = "ID can't be Null")
+	String id;
+	@NotNull(message = "Please enter patient name")
+	String name;  
+	@Size(min = 10, max = 10, message="Contact number must have 10 digits")
+	String contactnumber;
+	@Min(value = 40, message = "Weight should not be less than 40")
+    @Max(value = 200, message = "Weight should not be greater than 200")
+	int weight;
+	@Min(value = 1, message = "Age should not be less than 1 year")
+    @Max(value = 150, message = "Age should not be greater than 150")
+	int age;
+	@Pattern(regexp = "^(M|F|O)$")
+	String gender;
 	public String getId() {
 		return id;
 	}
@@ -36,10 +51,10 @@ public class PatientDto {
 	public void setAge(int age) {
 		this.age = age;
 	}
-	public Reader getGender() {
+	public String getGender() {
 		return gender;
 	}
-	public void setGender(Reader gender) {
+	public void setGender(String gender) {
 		this.gender = gender;
 	}
 	

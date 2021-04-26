@@ -46,8 +46,9 @@ public class AdminLogin {
 	public boolean adminMethod() {
 		Scanner sc = new Scanner(System.in);
 
+		
 		try {
-			logger.debug("-------------------Admin Panel------------------");
+			System.out.println("-------------------Admin Panel------------------");
 
 			logger.debug("\n-----Admin Login------");
 			System.out.print("\nEnter Username: ");

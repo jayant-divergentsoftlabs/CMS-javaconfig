@@ -51,7 +51,7 @@ public class DrugDao {
 			dto.setName(rs.getString(2));
 			dto.setQuantity(rs.getInt(3));
 			dto.setDescription(rs.getString(4));
-			dto.setPrice(rs.getString(5));
+			dto.setPrice(rs.getInt(5));
 
 			drugDtos.add(dto);
 		}

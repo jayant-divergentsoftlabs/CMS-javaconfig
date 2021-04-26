@@ -1,9 +1,24 @@
 package com.divergentsl.clinicmanagementsystem.dto;
 
-public class DoctorDto {
-	 String id, name, speciality, fee;
+import javax.validation.constraints.Max;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 
-	public  String getId() {
+public class DoctorDto {
+	@NotBlank(message = "ID can't be Null")
+	String id;
+	
+	@NotNull(message = "Please enter doctor name")
+	String name;
+	
+	@NotNull(message = "Please enter doctor's speciality")
+	String speciality;
+	
+	@NotBlank(message = "Please enter valid fee")
+	@Max(value = 1500, message = "fee should not be greater than 1500")
+	String fee;
+
+	public String getId() {
 		return id;
 	}
 
