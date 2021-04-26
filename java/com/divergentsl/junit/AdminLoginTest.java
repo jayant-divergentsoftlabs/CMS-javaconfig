@@ -33,7 +33,7 @@ class AdminLoginTest {
 	@Test
 	void adminLoginTest() {
 		
-		AdminDao adminDao = new AdminDao(driverManager);
+		AdminDao adminDao = new AdminDao();
 		assertTrue(adminDao.adminDao("admin", "admin")); //assertequal(Expected,real);
 	}
 	

@@ -4,34 +4,26 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
 
-import com.divergentsl.clinicmanagementsystem.BookedAppointment;
-import com.divergentsl.clinicmanagementsystem.CRUDLabtest;
-import com.divergentsl.clinicmanagementsystem.CRUDdoctor;
-import com.divergentsl.clinicmanagementsystem.CRUDdrug;
-import com.divergentsl.clinicmanagementsystem.CRUDpatient;
 import com.divergentsl.clinicmanagementsystem.databaseconnection.IDatabaseManager;
-
+/**
+ * This is a Data access object class for AdminLogin class.
+ * @author Jayant
+ *
+ */
+@Repository
 public class AdminDao {
-	static final Logger myLogger = Logger
-			.getLogger("Clinic-Management-Systemm/src/main/java/com/divergentsl/clinicmanagementsystem/AdminDao.java");
-	
+	private static Logger logger = LoggerFactory.getLogger(AdminDao.class);
 
-	public void setDatabaseManager(IDatabaseManager databaseManager) {
-		this.databaseManager = databaseManager;
-	}
+	@Autowired
+	private  IDatabaseManager databaseManager;
 
-	static IDatabaseManager databaseManager;
-
-	public AdminDao(IDatabaseManager databaseManager) {
-		this.databaseManager = databaseManager;
-	}
-
-	public static boolean adminDao(String username, String password) {
+	public boolean admindao(String username, String password) {
 		try {
-			myLogger.setLevel(Level.FINE);
 			Connection con = null;
 			Statement stmt = null;
 			ResultSet rs = null;
@@ -42,11 +34,11 @@ public class AdminDao {
 				rs = stmt.executeQuery(
 						"select * from admin where A_username ='" + username + "' and A_password ='" + password + "'");
 				if (rs.next()) {
-					myLogger.info("Password is correct..!!");
-					System.out.println("-----Admin Login Successful-----");
+					logger.debug("Password is correct..!!");
+					logger.debug("-----Admin Login Successful-----");
 					return true;
 				} else {
-					myLogger.info("Try again..!!");
+					logger.debug("Try again..!!");
 					return false;
 				}
 			}

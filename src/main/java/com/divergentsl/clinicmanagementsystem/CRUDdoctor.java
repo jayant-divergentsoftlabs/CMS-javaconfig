@@ -3,15 +3,15 @@ package com.divergentsl.clinicmanagementsystem;
 import java.sql.SQLException;
 
 import java.util.*;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
-import org.springframework.context.ApplicationContext;
-import org.springframework.context.support.ClassPathXmlApplicationContext;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import com.divergentsl.clinicmanagementsystem.dao.DoctorDao;
-import com.divergentsl.clinicmanagementsystem.databaseconnection.DatabaseManager;
 import com.divergentsl.clinicmanagementsystem.dto.DoctorDto;
+
 
 /**
  * This class is accessible only by the admin and in this class admin can
@@ -20,28 +20,25 @@ import com.divergentsl.clinicmanagementsystem.dto.DoctorDto;
  * @author Jayant
  *
  */
+@Component
 public class CRUDdoctor {
-	static final Logger myLogger = Logger.getLogger(
-			"Clinic-Management-Systemm/src/main/java/com/divergentsl/clinicmanagementsystem/CRUDdoctor.java");
+	private static Logger logger = LoggerFactory.getLogger(CRUDdoctor.class);
 	static Scanner sc = new Scanner(System.in);
 	
-	private static DoctorDao dao;
-
-	static {
-		ApplicationContext context = new ClassPathXmlApplicationContext("Confi.xml");
-		dao = context.getBean("doctordao", DoctorDao.class);
-	}
+	@Autowired
+	private  DoctorDao doctorDao;
+     @Autowired
+     private AdminLogin adminLogin;
 	
 
 	/**
 	 * This method i.e. CRUDdr is accessible by admin where admin can operate CRUD
 	 * on doctor.
 	 */
-	public static void CRUDdr() {
+	public void CRUDdr() {
 
 		while (true) {
-			myLogger.setLevel(Level.FINE);
-			myLogger.info("----------CRUD Operation for Doctor----------");
+			System.out.println("----------CRUD Operation for Doctor----------");
 			System.out.println("Press:- " + "\n1.Create Doctor" + "\n2.See doctor list" + "\n3.Edit Doctor"
 					+ "\n4.Delete Doctor" + "\n5.EXIT");
 			int input = sc.nextInt();
@@ -62,17 +59,17 @@ public class CRUDdoctor {
 
 				break;
 			case 5:
-				AdminLogin.adminpanel();
+				adminLogin.adminPanel();
 
 				break;
 			default:
-				myLogger.info("-------------------Enter Valid Input--------------------");
+			logger.debug("-------------------Enter Valid Input--------------------");
 				break;
 			}
 		}
 	}
 
-	public static void create() {
+	public  void create() {
 
 		System.out.println("Enter Doctor ID");
 		String id = sc.next();
@@ -84,36 +81,35 @@ public class CRUDdoctor {
 		String fee = sc.next();
 
 		try {
-			dao.create(id, name, speciality, fee);
-			myLogger.info("\n-------Insertion is Successful-------");
+			doctorDao.create(id, name, speciality, fee);
+			logger.debug("\n-------Insertion is Successful-------");
 		} catch (SQLException e) {
-			System.err.println(e);
-			myLogger.info("\n--------Unsuccesful ----------");
+			logger.debug("\n--------Unsuccesful ----------" +e.getMessage());
 		}
 
 	}
 
-	public static void read() {
-		myLogger.info("--------------------------------------Doctor List---------------------------------------------");
+	public  void read() {
+		System.out.println
+	  ("--------------------------------------Doctor List---------------------------------------------");
 
 		try {
 
-			List<DoctorDto> dtos = dao.read();
-//			System.out.printf("id          name \t        speciality      fee\n");
+			List<DoctorDto> dtos = doctorDao.read();
+//			logger.debug("id          name \t        speciality      fee\n");
 
 			for (DoctorDto doctorDto : dtos) {
-				System.out.printf(" %s %30s %15s  %20s ", doctorDto.getId(), doctorDto.getName(),
+				System.out.printf(" %s %30s %15s  %20s \n", doctorDto.getId(), doctorDto.getName(),
 						doctorDto.getSpeciality(), doctorDto.getFee());
-				System.out.println("\n");
+			
 			}
 		} catch (SQLException e) {
-			System.err.println(e);
-			myLogger.info("----------Can't read---------");
+			logger.debug("----------Can't read---------" +e.getMessage());
 		}
 
 	}
 
-	public static void update() {
+	public void update() {
 
 		System.out.println("Enter Doctor ID of doctor you want to edit");
 		String id = sc.next();
@@ -126,28 +122,26 @@ public class CRUDdoctor {
 
 		try {
 
-			dao.update(id, name, speciality, fee);
-			myLogger.info("\n-------Value  Updated-------");
+			doctorDao.update(id, name, speciality, fee);
+			logger.debug("\n-------Value  Updated-------");
 
 		} catch (SQLException e) {
 
-			e.printStackTrace();
-			myLogger.info("\n-------Can't  Update-------");
+			logger.debug("\n-------Can't  Update-------" +e.getMessage());
 		}
 	}
 
-	public static void delete() {
+	public void delete() {
 
 		try {
 
 			System.out.println("Enter Doctor ID of doctor you want to Delete");
 			String D_Id = sc.next();
-			dao.delete(D_Id);
-			myLogger.info("---------------Deleted successfully-----------------");
+			doctorDao.delete(D_Id);
+			logger.debug("---------------Deleted successfully-----------------");
 		} catch (SQLException e) {
 
-			e.printStackTrace();
-			myLogger.info("---------------Can't Delete-----------------");
+			logger.debug("---------------Can't Delete-----------------" + e.getMessage());
 		}
 	}
 

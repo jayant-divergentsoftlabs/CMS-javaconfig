@@ -5,28 +5,21 @@ import java.sql.Connection;
 import java.sql.SQLException;
 
 import java.util.Scanner;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
-import org.springframework.context.ApplicationContext;
-import org.springframework.context.support.ClassPathXmlApplicationContext;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import com.divergentsl.clinicmanagementsystem.dao.PrescriptionDao;
-import com.divergentsl.clinicmanagementsystem.databaseconnection.DatabaseManager;
-
+@Component
 public class Prescription {
-	static final Logger myLogger = Logger.getLogger(
-			"Clinic-Management-Systemm/src/main/java/com/divergentsl/clinicmanagementsystem/Prescription.java");
-	private static PrescriptionDao prescriptiondao;
+	private static Logger logger = LoggerFactory.getLogger(Prescription.class);
+	@Autowired
+	private  PrescriptionDao prescriptiondao;
 
-	
-	static {
-		ApplicationContext context = new ClassPathXmlApplicationContext("Confi.xml");
-		prescriptiondao = context.getBean("prescriptiondao", PrescriptionDao.class);
-	}
-	
-	public static void prescription() {
-		myLogger.setLevel(Level.FINE);
+
+	public void prescription() {
 		Scanner sc = new Scanner(System.in);
 
 		Connection con;
@@ -45,10 +38,10 @@ public class Prescription {
 		String notes = sc.next();
 		try {
 			prescriptiondao.create(name, mg, quantity, days, test, notes);
-			myLogger.info("\n-------Insertion is Successful-------");
+			logger.debug("\n-------Insertion is Successful-------");
 		} catch (SQLException e) {
 			System.err.println(e);
-			myLogger.info("\n--------Unsuccesful ----------");
+			logger.debug("\n--------Unsuccesful ----------");
 		}
 
 	}

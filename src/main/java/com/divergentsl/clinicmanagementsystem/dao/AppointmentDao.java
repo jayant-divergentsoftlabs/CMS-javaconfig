@@ -8,21 +8,27 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.springframework.context.ApplicationContext;
-import org.springframework.context.support.FileSystemXmlApplicationContext;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
 
-import com.divergentsl.clinicmanagementsystem.databaseconnection.DatabaseManager;
 import com.divergentsl.clinicmanagementsystem.databaseconnection.IDatabaseManager;
 import com.divergentsl.clinicmanagementsystem.dto.AppointmentDto;
-import com.divergentsl.clinicmanagementsystem.dto.DoctorDto;
 
+/**
+ * This is data access object class for create and read appointment
+ * 
+ * @author Jayant
+ *
+ */
+@Repository
 public class AppointmentDao {
-	IDatabaseManager databaseManager;
+	@Autowired
+	private IDatabaseManager databaseManager;
 
-	public AppointmentDao(IDatabaseManager databaseManager) {
-		this.databaseManager = databaseManager;
-	}
-	
+	/*
+	 * public AppointmentDao(IDatabaseManager databaseManager) {
+	 * this.databaseManager = databaseManager; }
+	 */
 
 	public int create(String appointmentId, String patientName, String doctorId, String problem, String appointmentDate,
 			String appointmentTime) throws SQLException {

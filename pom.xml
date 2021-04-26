@@ -136,7 +136,7 @@
 				<configuration>
 					<archive>
 						<manifest>
-							<mainClass>com.divergentsl.clinicmanagementsystem.ClinicManagementSystem</mainClass>
+							<mainClass>cms.Cms</mainClass>
 						</manifest>
 					</archive>
 				</configuration>

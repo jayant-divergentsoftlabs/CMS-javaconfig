@@ -1,11 +1,12 @@
 package com.divergentsl.clinicmanagementsystem;
 
 import java.util.*;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
-import org.springframework.context.ApplicationContext;
-import org.springframework.context.support.ClassPathXmlApplicationContext;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.env.Environment;
+import org.springframework.stereotype.Component;
 
 /**
  * In this class we will input from user that he/she want to login through
@@ -16,27 +17,24 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
  * @author Jayant
  *
  */
+@Component("ClinicManagement")
 
 public class ClinicManagementSystem {
-	static final Logger myLog = Logger.getLogger(
-			"Clinic-Management-Systemm/src/main/java/com/divergentsl/clinicmanagementsystem/ClinicManagementSystem.java");
-	private static AdminLogin adminLogin;
-	private static DoctorLogin doctorLogin;
+	private static Logger logger = LoggerFactory.getLogger(ClinicManagementSystem.class);
 
-	
-	static {
-		ApplicationContext context = new ClassPathXmlApplicationContext("Confi.xml");
-         adminLogin = context.getBean("adminLogin", AdminLogin.class);
-         doctorLogin = context.getBean("doctorLogin", DoctorLogin.class);
-	}
+	@Autowired
+	private AdminLogin adminLogin;
+	@Autowired
+	private DoctorLogin doctorLogin;
+	@Autowired
+	Environment env;
 
-	public static void show() {
+	public String show() {
 
 		Scanner sc = new Scanner(System.in);
 		while (true) {
 
-			myLog.setLevel(Level.FINE);
-			myLog.info("Enter the Login panel");
+			System.out.println("Enter the Login panel");
 			System.out.println("1. Admin");
 			System.out.println("2. Doctor");
 			System.out.println("Exit");
@@ -44,10 +42,10 @@ public class ClinicManagementSystem {
 			switch (Input) {
 			case 1:
 				if (adminLogin.adminMethod()) {
-					adminLogin.adminpanel();
+					adminLogin.adminPanel();
 
 				} else {
-					System.out.println("Wrong password");
+					logger.debug("Wrong password");
 				}
 
 				break;
@@ -57,12 +55,15 @@ public class ClinicManagementSystem {
 
 				break;
 			case 3:
-				ClinicManagementSystem.show();
-				myLog.info("------------------Exit Successfully-----------------------");
+
+				logger.debug("------------------Exit Successfully-----------------------");
 			default:
-				myLog.info("Enter valid panel");
+				logger.debug("Enter valid panel");
 			}
 		}
 	}
 
+	public String getPropertyValue() {
+		return env.getProperty("test");
+	}
 }

@@ -5,7 +5,6 @@ com\divergentsl\clinicmanagementsystem\CRUDLabtest.class
 com\divergentsl\clinicmanagementsystem\dao\ListpatientDao.class
 com\divergentsl\clinicmanagementsystem\dao\PatientDao.class
 com\divergentsl\clinicmanagementsystem\dao\DrugDao.class
-com\divergentsl\clinicmanagementsystem\databaseconnection\H2DatabaseManager.class
 com\divergentsl\clinicmanagementsystem\dto\PatientDto.class
 com\divergentsl\clinicmanagementsystem\CRUDdrug.class
 com\divergentsl\clinicmanagementsystem\BookedAppointment.class
@@ -16,6 +15,7 @@ com\divergentsl\clinicmanagementsystem\dao\AdminDao.class
 com\divergentsl\clinicmanagementsystem\dao\AppointmentDao.class
 com\divergentsl\clinicmanagementsystem\Prescription.class
 com\divergentsl\clinicmanagementsystem\DoctorLogin.class
+Cms\AppConfig.class
 com\divergentsl\clinicmanagementsystem\CRUDdoctor.class
 com\divergentsl\clinicmanagementsystem\dao\LabtestDao.class
 Cms\Cms.class

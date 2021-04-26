@@ -9,22 +9,27 @@ import java.util.List;
 
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.FileSystemXmlApplicationContext;
+import org.springframework.stereotype.Repository;
 
 import com.divergentsl.clinicmanagementsystem.databaseconnection.IDatabaseManager;
 import com.divergentsl.clinicmanagementsystem.dto.DoctorDto;
 import com.divergentsl.clinicmanagementsystem.dto.PatientDto;
-
+/**
+ * This is data access object class for read patient list.
+ * @author Jayant
+ *
+ */
+@Repository
 public class ListpatientDao {
-	IDatabaseManager DatabaseManager;
+	
+	public IDatabaseManager databaseManager;
 
-	public ListpatientDao(IDatabaseManager Databasemanager) {
-		this.DatabaseManager = Databasemanager;
-	}
+	
 
 	public List<PatientDto> read() throws SQLException {
 		Connection con = null;
 		Statement stmt = null;
-		con = DatabaseManager.getConnection();
+		con = databaseManager.getConnection();
 		stmt = con.createStatement();
 		ResultSet rs = stmt.executeQuery("select * from patient");
 		List<PatientDto> patientDtos = new ArrayList<>();

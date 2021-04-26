@@ -7,19 +7,25 @@ import java.sql.Statement;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import com.divergentsl.clinicmanagementsystem.databaseconnection.IDatabaseManager;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
 
+import com.divergentsl.clinicmanagementsystem.databaseconnection.IDatabaseManager;
+/**
+ * This is data access object class for doctor login.
+ * @author Jayant
+ *
+ */
+@Repository
 public class DoctorloginDao {
 	static final Logger myLogger = Logger
-			.getLogger("Clinic-Management-Systemm/src/main/java/com/divergentsl/clinicmanagementsystem/AdminDao.java");
+			.getLogger("DoctorloginDao.java");
 	
-	private static IDatabaseManager databaseManager;
+	@Autowired
+	private IDatabaseManager databaseManager;
 	
-    public DoctorloginDao(IDatabaseManager databaseManager) {
-		this.databaseManager = databaseManager;
-	}
 
-	public static boolean doctorDao(String username, String password) {
+	public  boolean doctorDao(String username, String password) {
 		try {
 			myLogger.setLevel(Level.FINE);
 			Connection con = null;

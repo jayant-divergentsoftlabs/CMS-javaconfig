@@ -11,7 +11,6 @@ E:\workspace-spring-tool-suite-4-4.9.0.RELEASE\Clinic-Management-Systemm\src\mai
 E:\workspace-spring-tool-suite-4-4.9.0.RELEASE\Clinic-Management-Systemm\src\main\java\com\divergentsl\clinicmanagementsystem\dao\PrescriptionDao.java
 E:\workspace-spring-tool-suite-4-4.9.0.RELEASE\Clinic-Management-Systemm\src\main\java\com\divergentsl\clinicmanagementsystem\AdminLogin.java
 E:\workspace-spring-tool-suite-4-4.9.0.RELEASE\Clinic-Management-Systemm\src\main\java\com\divergentsl\clinicmanagementsystem\dao\LabtestDao.java
-E:\workspace-spring-tool-suite-4-4.9.0.RELEASE\Clinic-Management-Systemm\src\main\java\com\divergentsl\clinicmanagementsystem\databaseconnection\H2DatabaseManager.java
 E:\workspace-spring-tool-suite-4-4.9.0.RELEASE\Clinic-Management-Systemm\src\main\java\com\divergentsl\clinicmanagementsystem\Prescription.java
 E:\workspace-spring-tool-suite-4-4.9.0.RELEASE\Clinic-Management-Systemm\src\main\java\com\divergentsl\clinicmanagementsystem\dao\AppointmentDao.java
 E:\workspace-spring-tool-suite-4-4.9.0.RELEASE\Clinic-Management-Systemm\src\main\java\com\divergentsl\clinicmanagementsystem\CRUDpatient.java
@@ -25,5 +24,6 @@ E:\workspace-spring-tool-suite-4-4.9.0.RELEASE\Clinic-Management-Systemm\src\mai
 E:\workspace-spring-tool-suite-4-4.9.0.RELEASE\Clinic-Management-Systemm\src\main\java\com\divergentsl\clinicmanagementsystem\CRUDdoctor.java
 E:\workspace-spring-tool-suite-4-4.9.0.RELEASE\Clinic-Management-Systemm\src\main\java\com\divergentsl\clinicmanagementsystem\dao\DoctorDao.java
 E:\workspace-spring-tool-suite-4-4.9.0.RELEASE\Clinic-Management-Systemm\src\main\java\Cms\Cms.java
+E:\workspace-spring-tool-suite-4-4.9.0.RELEASE\Clinic-Management-Systemm\src\main\java\Cms\AppConfig.java
 E:\workspace-spring-tool-suite-4-4.9.0.RELEASE\Clinic-Management-Systemm\src\main\java\com\divergentsl\clinicmanagementsystem\dao\DoctorloginDao.java
 E:\workspace-spring-tool-suite-4-4.9.0.RELEASE\Clinic-Management-Systemm\src\main\java\com\divergentsl\clinicmanagementsystem\DoctorLogin.java

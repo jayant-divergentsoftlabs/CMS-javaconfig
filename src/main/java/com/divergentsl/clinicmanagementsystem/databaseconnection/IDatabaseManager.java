@@ -8,11 +8,11 @@ import java.sql.SQLException;
  *
  */
 public interface IDatabaseManager {
-	String USERNAME = "root";
+	String USERNAME = "spring.datasource.username";
 
-	String PASSWORD = "root";
+	String PASSWORD = "spring.datasource.password";
 
-	String URl = "jdbc:mysql://localhost:3306/clinic-management-system";
+	String URL = "spring.datasource.url";
 
 	public Connection getConnection() throws SQLException ;
 	

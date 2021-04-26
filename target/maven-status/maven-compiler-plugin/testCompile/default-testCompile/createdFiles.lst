@@ -1,9 +1,0 @@
-com\divergentsl\junit\PatientDaoTest.class
-com\divergentsl\junit\DoctorDaoTest.class
-com\divergentsl\junit\AdminLoginTest.class
-com\divergentsl\junit\LabtestDaoTest.class
-com\divergentsl\junit\PrescriptionDaoTest.class
-com\divergentsl\junit\ListpatientDaoTest.class
-com\divergentsl\junit\DoctorLoginTest.class
-com\divergentsl\junit\DrugDaoTest.class
-com\divergentsl\junit\AppointmentDaoTest.class

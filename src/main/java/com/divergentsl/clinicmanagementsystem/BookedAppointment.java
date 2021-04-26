@@ -2,15 +2,15 @@ package com.divergentsl.clinicmanagementsystem;
 
 import java.sql.SQLException;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
+import org.springframework.stereotype.Component;
 
 import com.divergentsl.clinicmanagementsystem.dao.AppointmentDao;
-import com.divergentsl.clinicmanagementsystem.databaseconnection.DatabaseManager;
-
 import com.divergentsl.clinicmanagementsystem.dto.AppointmentDto;
 
 /**
@@ -19,31 +19,27 @@ import com.divergentsl.clinicmanagementsystem.dto.AppointmentDto;
  * @author Jayant
  *
  */
+@Component
 public class BookedAppointment {
-	static final Logger myLog = Logger.getLogger(
-			"Clinic-Management-Systemm/src/main/java/com/divergentsl/clinicmanagementsystem/BookedAppointment.java");
-       private static AppointmentDao dao;
-      
-	static {
-		ApplicationContext context=new ClassPathXmlApplicationContext("Confi.xml");
-		dao = context.getBean("appointmentdao", AppointmentDao.class);
-	}
+	private static Logger logger = LoggerFactory.getLogger(BookedAppointment.class);
+	@Autowired
+
+	private AppointmentDao appointmentDao;
 
 	/**
 	 * By this method i.e. bookedAppointment doctor will see the appointment booked
 	 * for his/her.
 	 */
 
-	public static void bookedAppointment() {
+	public void bookedAppointment() {
 
-		myLog.setLevel(Level.FINE);
-		myLog.info(
+		logger.debug(
 				"--------------------------------------Appointment List---------------------------------------------");
 
 		try {
-			List<AppointmentDto> dtos = dao.read();
-			System.out.println("\n");
-			System.out.printf(
+			List<AppointmentDto> dtos = appointmentDao.read();
+			logger.debug("\n");
+			logger.debug(
 					"Id                              Name               DoctorId                   Problem               DateofAppointment        Time\n");
 
 			for (AppointmentDto appointmentDto : dtos) {
@@ -53,11 +49,11 @@ public class BookedAppointment {
 				System.out.println("\n");
 
 			}
-			myLog.info(
+			logger.debug(
 					"-----------------------------------*---Appointment List---*--------------------------------------------------- ");
 		} catch (SQLException e) {
 			System.err.println(e);
-			myLog.info("----------Can't read---------");
+			logger.debug("----------Can't read---------");
 		}
 	}
 
