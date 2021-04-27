@@ -29,7 +29,7 @@ public class ClinicManagementSystem {
 	@Autowired
 	Environment env;
 
-	public String show() {
+	public String show() throws Exception {
 
 		Scanner sc = new Scanner(System.in);
 		while (true) {

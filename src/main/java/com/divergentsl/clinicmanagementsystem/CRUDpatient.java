@@ -3,6 +3,8 @@ package com.divergentsl.clinicmanagementsystem;
 import java.sql.SQLException;
 
 import java.util.List;
+import java.util.Map;
+import java.util.Map.Entry;
 import java.util.Scanner;
 import java.util.Set;
 
@@ -39,8 +41,9 @@ public class CRUDpatient {
 	/**
 	 * This method i.e. CRUDp is accessible by admin where admin can operate CRUD on
 	 * Patient.
+	 * @throws Exception 
 	 */
-	public void CRUDp() {
+	public void CRUDp() throws Exception {
 		while (true) {
 			System.out.println("--------CRUD Patient--------");
 			System.out.println("Press:- " + "\n1.Create Patient" + "\n2.See Patient list" + "\n3.Edit Patient"
@@ -104,18 +107,21 @@ public class CRUDpatient {
 
 	public void read() {
 		logger.debug("--------------------------------------Patient List---------------------------------------------");
+try {
+		List<Map<String, Object>> list = patientDao.read();
+		if (list != null) {
+		//System.out.printf(" id\t name\t age\t gender\t contactnumber\t weight\n");
 
-		try {
-			List<PatientDto> dtos = patientDao.read();
-			System.out.printf("id          name \t        age      gender\t  contactnumber\t  weight\n");
+		for (Map<String, Object> map : list) {
+			for (Entry<String, Object> get : map.entrySet()) {
 
-			for (PatientDto patientDto : dtos) {
-				System.out.printf(" %s %30s %15s  %20s %20s %20d ", patientDto.getId(), patientDto.getName(),
-						patientDto.getAge(), patientDto.getGender(), patientDto.getContactnumber(),
-						patientDto.getWeight());
-				System.out.println("\n");
+				System.out.printf("%15s", get.getValue());
+
 			}
-		} catch (SQLException e) {
+			logger.info("\n");
+		}
+	}
+} catch (Exception e) {
 			System.err.println(e);
 			logger.debug("----------Can't read---------");
 		}

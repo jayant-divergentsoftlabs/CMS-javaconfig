@@ -3,6 +3,7 @@ package com.divergentsl.clinicmanagementsystem;
 import java.sql.SQLException;
 
 import java.util.*;
+import java.util.Map.Entry;
 
 import javax.validation.ConstraintViolation;
 import javax.validation.Validation;
@@ -37,8 +38,9 @@ public class CRUDdoctor {
 	/**
 	 * This method i.e. CRUDdr is accessible by admin where admin can operate CRUD
 	 * on doctor.
+	 * @throws Exception 
 	 */
-	public void CRUDdr() {
+	public void CRUDdr() throws Exception {
 
 		while (true) {
 			System.out.println("----------CRUD Operation for Doctor----------");
@@ -73,7 +75,7 @@ public class CRUDdoctor {
 	}
 
 	public void create() {
-        DoctorDto doctorDto=new DoctorDto();
+		DoctorDto doctorDto = new DoctorDto();
 		System.out.println("Enter Doctor ID");
 		String id = sc.next();
 		doctorDto.setId(id);
@@ -86,7 +88,7 @@ public class CRUDdoctor {
 		System.out.println("Enter Doctor Fee");
 		String fee = sc.next();
 		doctorDto.setFee(fee);
-		if(validateDoctor(doctorDto)) {
+		if (validateDoctor(doctorDto)) {
 			return;
 		}
 
@@ -105,13 +107,19 @@ public class CRUDdoctor {
 
 		try {
 
-			List<DoctorDto> dtos = doctorDao.read();
-//			logger.debug("id          name \t        speciality      fee\n");
+			List<Map<String, Object>> list = doctorDao.read();
+			if (list != null) {
 
-			for (DoctorDto doctorDto : dtos) {
-				System.out.printf(" %s %30s %15s  %20s \n", doctorDto.getId(), doctorDto.getName(),
-						doctorDto.getSpeciality(), doctorDto.getFee());
+				// logger.info("id\t name \t speciality\t fee\n");
 
+				for (Map<String, Object> map : list) {
+					for (Entry<String, Object> get : map.entrySet()) {
+
+						System.out.printf("%20s", get.getValue());
+
+					}
+					logger.info("\n");
+				}
 			}
 		} catch (SQLException e) {
 			logger.debug("----------Can't read---------" + e.getMessage());
@@ -120,10 +128,10 @@ public class CRUDdoctor {
 	}
 
 	public void update() {
-         DoctorDto doctorDto=new DoctorDto();
+		DoctorDto doctorDto = new DoctorDto();
 		System.out.println("Enter Doctor ID of doctor you want to edit");
 		String id = sc.next();
-	    doctorDto.setId(id);
+		doctorDto.setId(id);
 		System.out.println("Enter a name you want to update");
 		String name = sc.next();
 		doctorDto.setName(name);
@@ -133,7 +141,7 @@ public class CRUDdoctor {
 		System.out.println("Enter a fee you want to update");
 		String fee = sc.next();
 		doctorDto.setFee(fee);
-		if(validateDoctor(doctorDto)) {
+		if (validateDoctor(doctorDto)) {
 			return;
 		}
 

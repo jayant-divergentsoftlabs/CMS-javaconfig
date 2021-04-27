@@ -39,9 +39,10 @@ public class Appointment {
 	/**
 	 * By the help of this method i.e. appointmentList admin can Create appointment
 	 * and can see doctor list.
+	 * @throws Exception 
 	 */
 
-	public void appointmentList() {
+	public void appointmentList() throws Exception {
 		try (Scanner sc = new Scanner(System.in)) {
 			logger.debug("-------------Appointment-------------");
 			System.out.println("Press:- " + "\n1.Create  Appointment" + "\n2.See Doctor list" + "\n3.EXIT");

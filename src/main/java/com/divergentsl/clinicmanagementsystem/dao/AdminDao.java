@@ -1,15 +1,14 @@
 package com.divergentsl.clinicmanagementsystem.dao;
 
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.util.List;
+import java.util.Map;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
-import com.divergentsl.clinicmanagementsystem.databaseconnection.IDatabaseManager;
 /**
  * This is a Data access object class for AdminLogin class.
  * @author Jayant
@@ -19,30 +18,24 @@ import com.divergentsl.clinicmanagementsystem.databaseconnection.IDatabaseManage
 public class AdminDao {
 	private static Logger logger = LoggerFactory.getLogger(AdminDao.class);
 
-	@Autowired
-	private  IDatabaseManager databaseManager;
+
+@Autowired
+private JdbcTemplate jdbcTemplate;
 
 	public boolean admindao(String username, String password) {
 		try {
-			Connection con = null;
-			Statement stmt = null;
-			ResultSet rs = null;
-			con = databaseManager.getConnection();
-			stmt = con.createStatement();
-			if (con != null) {
-
-				rs = stmt.executeQuery(
-						"select * from admin where A_username ='" + username + "' and A_password ='" + password + "'");
-				if (rs.next()) {
-					logger.debug("Password is correct..!!");
-					logger.debug("-----Admin Login Successful-----");
-					return true;
-				} else {
-					logger.debug("Try again..!!");
+			List<Map<String,Object>> list	=jdbcTemplate.queryForList("select * from admin where A_username ='" + username + "' and A_password ='" + password + "'");
+				if (list.isEmpty()) {
+					logger.info("Try again..!!");
 					return false;
+				} else {
+					logger.debug("Password is correct..!!");
+					logger.info("-----Admin Login Successful-----");
+					
+					return true;
 				}
-			}
-		} catch (SQLException e) {
+			
+		} catch (Exception e) {
 
 			e.printStackTrace();
 		}

@@ -1,5 +1,6 @@
 package com.divergentsl.clinicmanagementsystem;
 
+import java.sql.SQLException;
 import java.util.*;
 
 import org.slf4j.Logger;
@@ -19,7 +20,7 @@ import com.divergentsl.clinicmanagementsystem.dao.DoctorloginDao;
 @Component
 public class DoctorLogin {
 	private static Logger logger = LoggerFactory.getLogger(DoctorLogin.class);
-	static Scanner sc = new Scanner(System.in);
+	Scanner sc = new Scanner(System.in);
 
 	/**
 	 * In this method i.e. DoctorMethod it will check the doctor's username and
@@ -28,11 +29,12 @@ public class DoctorLogin {
 	@Autowired
 	private DoctorloginDao doctorLoginDao;
 	@Autowired
-	private CRUDdoctor crudDoctor;
+	private ClinicManagementSystem clinicManagementSystem;
 	@Autowired
 	private Prescription prescription;
 	@Autowired
 	private BookedAppointment bookedAppointment;
+	
 
 	public boolean doctorMethod() {
 		try {
@@ -44,7 +46,13 @@ public class DoctorLogin {
 
 			System.out.print("\nEnter Password: ");
 			String password = sc.next();
-			return doctorLoginDao.doctorDao(username, password);
+			if (doctorLoginDao.doctorDao(username, password)) {
+				logger.debug("Admin Login Successful");
+				return true;
+			} else {
+				logger.debug("Incorrect Username & Password");
+				return false;
+			}
 		}
 
 		catch (Exception e) {
@@ -57,9 +65,11 @@ public class DoctorLogin {
 	/**
 	 * This method will perform all the operations which will access by Doctor.
 	 * Doctor will give input for specific operation.
+	 * 
+	 * @throws Exception
 	 */
 
-	public int doctor_panel() {
+	public int doctor_panel() throws Exception {
 
 		System.out.println("Select: " + "\n1.List of patient" + "\n2.Add prescription and notes for a patient"
 				+ "\n3.See booked appointments" + "\n4.Check patient history and his prescription" + "\n5.Exit");
@@ -82,7 +92,8 @@ public class DoctorLogin {
 //			Prescription.prescription();
 			break;
 		case 5:
-			crudDoctor.CRUDdr();
+			clinicManagementSystem.show();
+
 			logger.debug("------------------Exit Successfully-----------------------");
 			break;
 

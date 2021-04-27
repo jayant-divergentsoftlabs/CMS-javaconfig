@@ -10,7 +10,7 @@ import com.divergentsl.clinicmanagementsystem.ClinicManagementSystem;
 public class Cms {
 	private static Logger logger = LoggerFactory.getLogger(Cms.class);
 
-	public static void main(String[] args) {
+	public static void main(String[] args) throws Exception {
 		logger.info("---*---Login Panel---*--------- ");
 		AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext();
 		context.getEnvironment().setActiveProfiles("dev");
@@ -20,7 +20,7 @@ public class Cms {
 		ClinicManagementSystem clinicManagement = context.getBean(ClinicManagementSystem.class);
 		logger.info("Property Value:{}", clinicManagement.getPropertyValue());
 		logger.info("ClinicManagementSystem:{}", clinicManagement.show());
-
+        System.exit(0);
 	}
 
 }

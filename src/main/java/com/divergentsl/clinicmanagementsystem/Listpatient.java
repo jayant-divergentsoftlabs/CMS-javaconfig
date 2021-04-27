@@ -8,32 +8,37 @@ import java.sql.SQLException;
  *
  */
 import java.util.List;
+import java.util.Map;
+import java.util.Map.Entry;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import com.divergentsl.clinicmanagementsystem.dao.PatientDao;
-import com.divergentsl.clinicmanagementsystem.dto.PatientDto;
+import com.divergentsl.clinicmanagementsystem.dao.ListpatientDao;
 
 public class Listpatient {
 	private static Logger logger = LoggerFactory.getLogger(Listpatient.class);
 
 	@Autowired
-	private static PatientDao patientDao;
+	private static  ListpatientDao listpatientDao;
 
-	public static void listPatient() {
-		logger.debug("--------------------------------------Patient List---------------------------------------------");
+	public static  void listPatient() {
+		logger.info("--------------------------------------Patient List---------------------------------------------");
 
 		try {
-			List<PatientDto> dtos = patientDao.read();
-			// System.out.printf("id name \t age gender\t contactnumber\t weight\n");
+			List<Map<String, Object>> list = listpatientDao.read();
+			if (list != null) {
+				// System.out.printf("id name \t age gender\t contactnumber\t weight\n");
 
-			for (PatientDto patientDto : dtos) {
-				System.out.printf(" %s %30s %15s  %20s %20s %20d \n", patientDto.getId(), patientDto.getName(),
-						patientDto.getAge(), patientDto.getGender(), patientDto.getContactnumber(),
-						patientDto.getWeight());
-				
+				for (Map<String, Object> map : list) {
+					for (Entry<String, Object> get : map.entrySet()) {
+
+						System.out.printf("%10s ", get.getValue());
+
+					}
+					logger.info("\n");
+				}
 			}
 		} catch (SQLException e) {
 			System.err.println(e);

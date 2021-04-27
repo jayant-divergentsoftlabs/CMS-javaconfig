@@ -74,8 +74,9 @@ public class AdminLogin {
 	/**
 	 * This method will perform all the operations which will access by admin. Admin
 	 * will give input for specific operation.
+	 * @throws Exception 
 	 */
-	public int adminPanel() {
+	public int adminPanel() throws Exception {
 		try {
 			while (true) {
 

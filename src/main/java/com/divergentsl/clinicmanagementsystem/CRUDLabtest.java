@@ -2,6 +2,7 @@ package com.divergentsl.clinicmanagementsystem;
 
 import java.sql.SQLException;
 import java.util.*;
+import java.util.Map.Entry;
 
 import javax.validation.ConstraintViolation;
 import javax.validation.Validation;
@@ -27,15 +28,16 @@ import com.divergentsl.clinicmanagementsystem.dto.LabtestDto;
 public class CRUDLabtest {
 	private static Logger logger = LoggerFactory.getLogger(CRUDLabtest.class);
 	@Autowired
-	private static LabtestDao labtestDao;
+	private LabtestDao labtestDao;
 	@Autowired
 	private AdminLogin adminLogin;
 
 	/**
 	 * This method i.e. CRUDtest is accessible by admin where admin can operate CRUD
 	 * on test which are in Lab.
+	 * @throws Exception 
 	 */
-	public void CRUDLab() {
+	public void CRUDLab() throws Exception {
 		Scanner sc = new Scanner(System.in);
 		while (true) {
 			System.out.println("--------CRUD LabTest--------");
@@ -96,13 +98,18 @@ public class CRUDLabtest {
 				"--------------------------------------Test List---------------------------------------------");
 
 		try {
-			List<LabtestDto> dtos = labtestDao.read();
-			// System.out.printf("%s %20s %20s",id,name,price\n);
+			List<Map<String, Object>> list = labtestDao.read();
+			if (list != null) {
+				// System.out.printf("%s %20s %20s",id,name,price\n);
 
-			for (LabtestDto labDto : dtos) {
+				for (Map<String, Object> map : list) {
+					for (Entry<String, Object> get : map.entrySet()) {
 
-				System.out.printf("%s %20s %20s \n", labDto.getId(), labDto.getName(), labDto.getPrice());
+						System.out.printf(" %20s", get.getValue());
 
+					}
+					logger.info("\n");
+				}
 			}
 		} catch (SQLException e) {
 			logger.debug("----------Can't read---------" + e.getMessage());

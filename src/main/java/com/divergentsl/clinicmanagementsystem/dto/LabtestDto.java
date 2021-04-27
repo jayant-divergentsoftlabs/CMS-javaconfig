@@ -1,6 +1,5 @@
 package com.divergentsl.clinicmanagementsystem.dto;
 
-import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
 public class LabtestDto {
@@ -8,7 +7,7 @@ public class LabtestDto {
 	String  name;
 	@NotNull(message = "ID can't be Null")
 	int id;
-	@NotBlank(message = "price can't be Null")
+	@NotNull(message = "price can't be Null")
 	int price;
 	public int getId() {
 		return id;

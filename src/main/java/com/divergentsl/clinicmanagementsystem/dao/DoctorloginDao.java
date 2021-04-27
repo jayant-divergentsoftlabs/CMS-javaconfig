@@ -1,57 +1,47 @@
 package com.divergentsl.clinicmanagementsystem.dao;
 
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import java.util.List;
+import java.util.Map;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
-import com.divergentsl.clinicmanagementsystem.databaseconnection.IDatabaseManager;
 /**
  * This is data access object class for doctor login.
+ * 
  * @author Jayant
  *
  */
 @Repository
 public class DoctorloginDao {
-	static final Logger myLogger = Logger
-			.getLogger("DoctorloginDao.java");
-	
+	static final Logger myLogger = LoggerFactory.getLogger(DoctorloginDao.class);
+
 	@Autowired
-	private IDatabaseManager databaseManager;
-	
+	private JdbcTemplate jdbcTemplate;
 
-	public  boolean doctorDao(String username, String password) {
+	public boolean doctorDao(String username, String password) {
 		try {
-			myLogger.setLevel(Level.FINE);
-			Connection con = null;
-			Statement stmt = null;
-			con = databaseManager.getConnection();
-			stmt = con.createStatement();
-			if (con != null) {
 
-				ResultSet rs=stmt.executeQuery("select *from doctorlogin where D_username ='" + username + "' and D_password ='" + password + "'");
-				if (rs.next()) {
-					myLogger.info("Password is correct..!!");
-					myLogger.info("-----Doctor Login Successful-----");
-					return true;
-				} else {
-					myLogger.info("Try again..!!");
-				}
+			List<Map<String, Object>> list = jdbcTemplate.queryForList(
+					"select *from doctorlogin where D_username ='" + username + "' and D_password ='" + password + "'");
+			if (list.isEmpty()) {
+				myLogger.info("Try again..!!");
+				return false;
 			} else {
-				myLogger.info("Connection error..!!");
+				myLogger.debug("Password is correct..!!");
+				myLogger.info("-----Doctor Login Successful-----");
+				return true;
 			}
-		} catch (SQLException e) {
-			
+
+		} catch (Exception e) {
+
 			e.printStackTrace();
 		}
 		return false;
 
 	}
-	
 
 }

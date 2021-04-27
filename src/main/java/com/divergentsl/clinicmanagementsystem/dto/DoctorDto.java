@@ -4,6 +4,8 @@ import javax.validation.constraints.Max;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
+import org.springframework.stereotype.Component;
+@Component
 public class DoctorDto {
 	@NotBlank(message = "ID can't be Null")
 	String id;
